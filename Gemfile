@@ -7,14 +7,19 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'pg'
 gem 'simple_form'
 gem 'slim-rails'
+gem 'awesome_print'
+gem 'cancan'
+gem 'grape', '~> 0.9.0'
+group :doc do 
+  gem 'sdoc', '~> 0.4.0'
+end
 group :development do
+  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
