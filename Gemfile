@@ -15,6 +15,7 @@ gem 'slim-rails'
 gem 'awesome_print'
 gem 'cancan'
 gem 'grape', '~> 0.9.0'
+gem 'grape-jbuilder', '0.2.0'
 group :doc do 
   gem 'sdoc', '~> 0.4.0'
 end
@@ -43,5 +44,6 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'faker'
   gem 'selenium-webdriver'
 end

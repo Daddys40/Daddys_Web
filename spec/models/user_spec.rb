@@ -1,13 +1,6 @@
 describe User do
-
-  before(:each) { @user = User.new(email: 'user@example.com') }
-
-  subject { @user }
-
-  it { should respond_to(:email) }
-
-  it "#email returns a string" do
-    expect(@user.email).to match 'user@example.com'
+  it "should have auth token" do 
+  	user = FactoryGirl.create(:user)
+  	user.authentication_token.length.should > 3
   end
-
 end

@@ -14,6 +14,17 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+ENV['RAILS_ENV'] ||= 'test'
+
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'capybara/rspec'
+require 'capybara/rails'
+require 'database_cleaner'
+
+DatabaseCleaner.strategy = :truncation
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -27,6 +38,14 @@ RSpec.configure do |config|
     # ...rather than:
     #   # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:suite) do
+    DatabaseCleaner.clean
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
@@ -66,7 +85,8 @@ RSpec.configure do |config|
   end
 
   # Print the 10 slowest examples and example groups at the
-  # end of the spec run, to help surface which specs are running
+  # end of the spec run, to help surface wh
+  ich specs are running
   # particularly slow.
   config.profile_examples = 10
 
