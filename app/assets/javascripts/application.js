@@ -14,4 +14,14 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require_tree .
+
+//= require angular-1.3.0-rc.1/angular.js
+//= require angular-1.3.0-rc.1/angular-resource.js
+//= require angular-1.3.0-rc.1/angular-route.js
+
+
+//= require angular/app.js
+//= require_tree ./angular/providers
+//= require_tree ./angular/directives
+//= require_tree ./angular/controllers
+//= require_tree ./angular/filters

@@ -80,3 +80,14 @@ section {
   @extend .btn-primary;
   @extend .btn-xs;
 }
+
+label {
+  font-weight: 200
+}
+input {
+  outline: none;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}

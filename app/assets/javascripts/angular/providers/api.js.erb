@@ -1,0 +1,98 @@
+angular.module('daddysAPI', ['ngResource'])
+	.factory("Auth", ['$resource', function($resource){
+    //     new_user_session GET    /users/sign_in(.:format)       devise/sessions#new
+    //         user_session POST   /users/sign_in(.:format)       devise/sessions#create
+    // destroy_user_session DELETE /users/sign_out(.:format)      devise/sessions#destroy
+  	return $resource(
+  		"/users/:action",
+  		{},
+  		{
+  			signIn: {
+	  			method: 'POST',
+	  			params: { 
+	  				action: "sign_in"
+	  			}
+	  		},
+	  		signOut: {
+	  			method: 'DELETE',
+	  			params: {
+	  				action: "sign_out"
+	  			}
+	  		}
+ 			}
+  	);
+	}])
+  // .factory('Tag', ['$resource', function ($resource) {
+  //   return $resource("/api/cards/:card_id/tags/:tag_id");
+  // }]);
+
+// app.factory 'ReportCards', ['$resource', ($resource) ->
+//   $resource "/api/report_cards/:action", {},
+//     report:
+//       method: 'POST'
+//       params:
+//         action: 'report'
+// ]
+
+// app.factory "Collection", ["$resource", ($resource) ->
+//   $resource "/api/collections/:collection_id", collection_id: '@collection_id',
+//     update:
+//       method: "PUT"
+// ]
+
+// app.factory "Card", ["$resource", ($resource) ->
+//   $resource "/api/cards/:post_id/:action", post_id: '@post_id', action: "@action",
+//     publishNow:
+//       method: "PUT"
+//       params:
+//         action: "publish_now"
+// ]
+
+// app.factory "Fandom", ["$resource", ($resource) ->
+//   $resource "/api/parties/:channel_id/fandoms", channel_id: "@channel_id"
+// ]
+
+// app.factory "Search", ["$resource", ($resource) ->
+//   $resource "/api/search/:type", {},
+//     getChannels:
+//       isArray: true
+//       method: "GET"
+//       params:
+//         type: "parties"
+// ]
+
+// app.factory "Channel", ["$resource", ($resource) ->
+//   $resource "/api/parties/:channel_id/:action/:subaction", channel_id: '@channel_id', action: "@action",
+//     getSummary:
+//       params:
+//         action: "summary"
+//     indexForJoinChannels:
+//       isArray: true
+//       params:
+//         action: "index_for_join_interests"
+//     relatedChannels:
+//       isArray: true
+//       params:
+//         action: "related_parties"
+//     feedSummary:
+//       isArray: true
+//       params:
+//         action: "feed"
+//         subaction: "summarized_for_homepage"
+// ]
+
+// app.factory "CollectionLike", ["$resource", ($resource) ->
+//   $resource "/api/collections/:collection_id/likes", collection_id: '@collection_id'
+// ]
+
+// app.factory "CollectionFollowing", ["$resource", ($resource) ->
+//   $resource "/api/collections/:collection_id/followings", collection_id: '@collection_id'
+// ]
+
+// app.factory 'PusherUserChannel', ['globalVars', (globalVars) ->
+//   if globalVars.user_id && globalVars.pusher_key
+//     pusher = new Pusher(globalVars.pusher_key)
+//     return pusher.subscribe('private-' + globalVars.user_id)
+//   else
+//     return null
+// ]
