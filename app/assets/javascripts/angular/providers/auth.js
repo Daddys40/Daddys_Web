@@ -11,56 +11,88 @@ angular.module('daddysAuth', ['daddysAPI'])
   })
   // Singleton service for saving current session
   .service('Session', function () {
-    this.create = function (sessionId, userId) {
-      this.id = sessionId;
-      this.userId = userId;
+    this.create = function (user) {
+      this.user = user;
     };
     this.destroy = function () {
-      this.id = null;
-      this.userId = null;
+      this.user = null;
     };
+    this.current = function () {
+      return this.user;
+    }
     return this;
   })
-  .factory('AuthService', function ($http, Session, Auth) {
-    var authService = {};
-   
-    authService.signIn = function (credentials) {
-      return Auth.signIn(
-        credentials, 
-        function(response) {
-          console.log(arguments);
-        }).$promise
-      // Tag.delete(parameters
-      //   , () ->
-      //     $element.modal("hide")
-      //     if $scope.onRemove
-      //       $scope.onRemove()
-      //   , (response) ->
-      //       $scope.errorMessage = response.data.error
-      // )
-      // return $http
-      //   .post('/login', credentials)
-      //   .then(function (res) {
-      //     Session.create(res.data.id, res.data.user.id,
-      //                    res.data.user.role);
-      //     return res.data.user;
-      //   });
+  .factory('AuthService', [
+    "$http", "Session", "Auth", "$rootScope", "AUTH_EVENTS", 
+    function ($http, Session, Auth, $rootScope, AUTH_EVENTS) {
+      var authService = {};
+      authService.signIn = function (credentials) {
+        return Auth.signIn(
+          {
+            user: credentials
+          }, 
+          function (response) {
+            Session.create(response.current_user);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+          }, 
+          function (response) {
+            Session.destroy();
+            $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+          }
+        ).$promise;
+      };
+      authService.signOut = function() {
+        return Auth.signOut(
+          {}, 
+          function (response) {
+            Session.destroy();
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+          }, 
+          function (response) {
+            $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+          }
+        ).$promise;
+      };
+      authService.validate = function() {
+        return Auth.validate(
+          {},
+          function (response) {
+            Session.create(response.current_user);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+          },  
+          function (response) {
+            Session.destroy();
+            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+          }
+        ).$promise;
+      };
+      authService.isAuthenticated = function () {
+        return !!Session.userId;
+      };     
+      return authService;
+    }
+  ])
+  .factory('AuthInterceptor',["$rootScope", "$q", "AUTH_EVENTS", function ($rootScope, $q, AUTH_EVENTS) {
+    return {
+      responseError: function (response) { 
+        $rootScope.$broadcast({
+          401: AUTH_EVENTS.notAuthenticated,
+          403: AUTH_EVENTS.notAuthorized,
+          419: AUTH_EVENTS.sessionTimeout,
+          440: AUTH_EVENTS.sessionTimeout
+        }[response.status], response);
+        return $q.reject(response);
+      }
     };
-   
-    authService.isAuthenticated = function () {
-      return !!Session.userId;
-    };
-
-    // Should be handled by passing cancan abilities to AngularJS side.
-    //  
-    // authService.isAuthorized = function (authorizedRoles) {
-    //   if (!angular.isArray(authorizedRoles)) {
-    //     authorizedRoles = [authorizedRoles];
-    //   }
-    //   return (authService.isAuthenticated() &&
-    //     authorizedRoles.indexOf(Session.userRole) !== -1);
-    // };
-   
-    return authService;
-  });
-
+  }])
+  .config(["$httpProvider", function ($httpProvider) {
+    $httpProvider.interceptors.push([
+      '$injector',
+      function ($injector) {
+        return $injector.get('AuthInterceptor');
+      }
+    ]);
+  }])
+  .run(["AuthService", function (AuthService) {
+    AuthService.validate()
+  }]);

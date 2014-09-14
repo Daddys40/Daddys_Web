@@ -18,6 +18,7 @@
 //= require angular-1.3.0-rc.1/angular.js
 //= require angular-1.3.0-rc.1/angular-resource.js
 //= require angular-1.3.0-rc.1/angular-route.js
+//= require angular-1.3.0-rc.1/angular-animate.js
 
 
 //= require angular/app.js

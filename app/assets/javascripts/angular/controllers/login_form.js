@@ -1,15 +1,23 @@
 angular.module('daddysControllers', ['daddysAuth'])
-  .controller('LoginFormCtrl', ["$scope", "$rootScope", "AuthService", "AUTH_EVENTS", function ($scope, $rootScope, AuthService, AUTH_EVENTS) {
+  .controller('LoginFormCtrl', ["$scope", "AuthService", "AUTH_EVENTS", function ($scope, AuthService, AUTH_EVENTS) {
     $scope.credentials = {
-      username: '',
+      email: '',
       password: ''
     };
+
+    $scope.errorMessage = ""
     
     $scope.login = function (credentials) {
-      AuthService.signIn(credentials).then(function (user) {
-        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-      }, function () {
-        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-      });
+      AuthService.signIn(credentials).then(
+        function () {
+        }, 
+        function (response) {
+          $scope.errorMessage = response.data.errors;
+        }
+      );
     };
+  }])
+  .controller('MainCtrl', ["$scope", "Session", function ($scope, Session) {
+    $scope.session = Session;
   }]);
+  

@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => "sessions" }
   resources :users
-  # resources :home
+
   scope :path => "views" do 
   	resources :home
   end
 
-  mount API => "/api"
+  mount API => "/"
 end

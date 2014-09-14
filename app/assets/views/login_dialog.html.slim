@@ -5,16 +5,15 @@ div class="fs-view login-dialog-view"
       div class="form-group"
         div class="col-sm-12"
           div class="form-input-control"
-            input type="email" class="form-control" placeholder="Email" ng-model="credentials.username"
+            input type="email" class="form-control" placeholder="Email" ng-model="credentials.email"
       div class="form-group"
         div class="col-sm-12"
           div class="form-input-control"
             input type="password" class="form-control" placeholder="Password" ng-model="credentials.password"
+      div ng-show="errorMessage" class="alert alert-danger" role="alert"
+        | {{ errorMessage }}
       div class="form-group"
         div class="col-sm-12"
           div class="checkbox"
             label
               input type="checkbox" Remember me
-      div class="form-group"
-        div class="col-sm-12"
-          button type="submit" class="btn btn-default" Sign in

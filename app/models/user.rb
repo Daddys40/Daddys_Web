@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
 
   before_create :ensure_authentication_token
 
+  def public_hash
+    ## TODO : remove private data that shoud not be exposed on client side
+    return JSON.parse(self.to_json)
+  end
+
   private
 
   def ensure_authentication_token

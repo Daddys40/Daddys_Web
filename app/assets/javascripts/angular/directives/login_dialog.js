@@ -1,16 +1,21 @@
 angular.module('daddys')
-  .directive('loginDialog', [ function () {
+  .directive('loginDialog', ["AUTH_EVENTS", function (AUTH_EVENTS) {
     return {
       restrict: 'A',
       link: function (scope) {
         scope.visible = false;
-        var showDialog = function () {
+
+        function showDialog () {
           scope.visible = true;
         };
-        showDialog();
-        // scope.visible = false;
-        // scope.$on(AUTH_EVENTS.notAuthenticated, showDialog);
-        // scope.$on(AUTH_EVENTS.sessionTimeout, showDialog)
+        function closeDialog () {
+          scope.visible = false;
+        }
+
+        scope.$on(AUTH_EVENTS.notAuthenticated, showDialog);
+        scope.$on(AUTH_EVENTS.logoutSuccess,    showDialog);
+
+        scope.$on(AUTH_EVENTS.loginSuccess, closeDialog);
       }
     };
   }]);

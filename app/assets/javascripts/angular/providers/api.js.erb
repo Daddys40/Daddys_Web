@@ -7,6 +7,12 @@ angular.module('daddysAPI', ['ngResource'])
   		"/users/:action",
   		{},
   		{
+  			validate: {
+  				method: 'POST',
+  				params: {
+  					action: "validate"
+  				}
+  			},
   			signIn: {
 	  			method: 'POST',
 	  			params: { 
