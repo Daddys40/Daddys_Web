@@ -1,11 +1,11 @@
 class SessionsController < Devise::SessionsController
+  skip_before_filter :verify_authenticity_token
+  
   def create
     self.resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     sign_in(resource_name, resource)
-    render({
-      json: {  
-        current_user: current_user.public_hash
-      }, 
+    render({ 
+      json: { current_user: current_user.public_hash }, 
       status: 200
     })
   end

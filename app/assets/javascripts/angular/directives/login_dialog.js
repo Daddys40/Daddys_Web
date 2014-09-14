@@ -7,7 +7,8 @@ angular.module('daddys')
 
         function showDialog () {
           scope.visible = true;
-        };
+        }
+        
         function closeDialog () {
           scope.visible = false;
         }

@@ -10,10 +10,10 @@ angular.module('daddys', ['ngRoute', 'ngAnimate', 'daddysControllers'])
         templateUrl: 'assets/main.html',
         controller: 'MainCtrl'
       })
-      // .when('/about', {
-      //   templateUrl: 'views/about.html',
-      //   controller: 'AboutCtrl'
-      // })
+      .when('/users', {
+        templateUrl: 'assets/users_index.html',
+        controller: 'UsersCtrl'
+      })
       // .when('/groups', {
       //   templateUrl: 'views/groups.html',
       //   controller: 'GroupsCtrl'

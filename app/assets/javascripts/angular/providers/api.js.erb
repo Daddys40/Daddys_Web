@@ -28,6 +28,11 @@ angular.module('daddysAPI', ['ngResource'])
  			}
   	);
 	}])
+  .factory("User", ['$resource', function($resource){
+    return $resource(
+      "/users/:id", {}, {}
+    );
+  }])
   // .factory('Tag', ['$resource', function ($resource) {
   //   return $resource("/api/cards/:card_id/tags/:tag_id");
   // }]);
