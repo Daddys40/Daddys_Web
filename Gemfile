@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+
+ruby '2.1.2'
+
 gem 'rails', '4.1.5'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -22,7 +24,6 @@ end
 group :development do
   gem 'spring'
   gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec'
@@ -44,6 +45,5 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'faker'
   gem 'selenium-webdriver'
 end
