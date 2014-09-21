@@ -23,13 +23,35 @@ class API < Grape::API
     def current_user
       warden.user || @user
     end
+
+    def agent_version(agent)
+      return agent unless agent
+
+      components = agent.split(" ")
+      if components.length > 2
+        return components[1].split("/")[1]
+      end
+      return nil;
+    end
   end
 
 
   namespace :app do 
     get :version do
+      user_current_version = agent_version(request.env["HTTP_USER_AGENT"])
+
+      latest_version = "1.0.0"
+
+      current_version = (
+        if user_current_version && user_current_version > latest_version
+          user_current_version
+        else
+          latest_version
+        end
+      )
+
       return {
-        latest_version: "1.0.0",
+        latest_version: current_version,
         update_message: "Update Message",
         needs_force_update: false,
       } 
