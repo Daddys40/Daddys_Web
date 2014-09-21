@@ -30,6 +30,7 @@ class API < Grape::API
     get :version do
       return {
         latest_version: "1.0.0",
+        update_message: "Update Message",
         needs_force_update: false,
       } 
     end

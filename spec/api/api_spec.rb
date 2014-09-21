@@ -5,16 +5,20 @@ describe API, type: :request do
   describe API do
     describe "GET /api/hello" do
       it "returns an empty array of statuses" do
-        get "/api/hello.json"
+        get "/hello.json"
         response.status.should == 200
         json.should == {"hello" => "world"}
       end
     end
 
+    describe "GET /app/version" do 
+      
+    end
+
     describe "User API" do 
       describe "POST api/users" do 
         it "should create user" do 
-          post "/api/users.json", user: {
+          post "/users.json", user: {
             email: "breath103@gmail.com",
             password: "123123123",
             name: "Kurt Sang Hyun Lee",
@@ -31,10 +35,10 @@ describe API, type: :request do
     end
 
     describe "Authorize API" do 
-      describe "POST api/auth/authorize" do 
+      describe "POST auth/authorize" do 
         let!(:user) { FactoryGirl.create(:user, password: "12341234") }
         it "should return user with proper email/password" do 
-          post "/api/auth/authorize", email: user.email, password: "12341234"
+          post "/auth/authorize", email: user.email, password: "12341234"
           response.should be_success
           json["email"].should == user.email
         end

@@ -1,3 +1,7 @@
+#= depend_on_asset "main.html"
+#= depend_on_asset "users_index.html"
+#= depend_on_asset "login_dialog.html"
+
 'use strict';
 angular.module('daddys', ['ngRoute', 'ngAnimate', 'daddysControllers'])
   .config(["$httpProvider", function ($httpProvider) {
@@ -7,17 +11,13 @@ angular.module('daddys', ['ngRoute', 'ngAnimate', 'daddysControllers'])
   .config(["$routeProvider", function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'assets/main.html',
+        templateUrl: '<%= asset_path("main.html") %>',
         controller: 'MainCtrl'
       })
       .when('/users', {
-        templateUrl: 'assets/users_index.html',
+        templateUrl: '<%= asset_path("users_index.html") %>',
         controller: 'UsersCtrl'
       })
-      // .when('/groups', {
-      //   templateUrl: 'views/groups.html',
-      //   controller: 'GroupsCtrl'
-      // })
       .otherwise({
         redirectTo: '/'
       });

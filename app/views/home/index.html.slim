@@ -11,7 +11,7 @@ html ng-app="daddys"
     == csrf_meta_tags
   body
   	div login-dialog=""
-      div ng-show="visible" class="fs-view login-dialog-view" ng-include="'assets/login_dialog.html'"
+      div ng-show="visible" class="fs-view login-dialog-view" ng-include="'#{asset_path("login_dialog.html")}'"
     nav class="navbar navbar-default" role="navigation" ng-controller="NavbarCtrl"
       div class="container-fluid"
         div class="navbar-header"
