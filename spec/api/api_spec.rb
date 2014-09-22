@@ -31,6 +31,23 @@ describe API, type: :request do
         end
       end
 
+      context "with latest version" do 
+        before {
+          get 'app/version', {}, {"HTTP_USER_AGENT" => "Vingle iOS/1.0.0 (iPhone Simulator; iOS 6.1)"}
+        }
+        describe "response body" do
+          it "should return json" do 
+            json.should == {
+              "current_version" => "1.0.0",
+              "needs_update" => false,
+              "needs_force_update" => false,
+              "update_message" => "Update Message",
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
+            }
+          end
+        end
+      end
+
       context "with lower version" do
         before {
           get 'app/version', {}, {"HTTP_USER_AGENT" => "Vingle iOS/0.9.5b4 (iPhone Simulator; iOS 6.1)"}

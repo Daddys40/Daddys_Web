@@ -2,10 +2,14 @@ div class="container"
   h3 
     | Users
   ul class="users-list" 
-    li ng-repeat="user in users" class="user"
-      a href="#/users/{{user.id}}" 
-        | {{ user.id }}
-      p
-        | {{ user.name }}
-      p 
-        | {{ user.email }}
+    table
+      thead
+      tbody
+        tr ng-repeat="user in users" class="user"
+          td 
+            a href="#/users/{{user.id}}" 
+              | {{ user.id }}
+          td
+            | {{ user.name }}
+          p 
+            | {{ user.email }}

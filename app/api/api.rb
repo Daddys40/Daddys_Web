@@ -44,7 +44,7 @@ class API < Grape::API
 
       needs_update = false
       current_version = (
-        if user_current_version && user_current_version > latest_version
+        if user_current_version && user_current_version >= latest_version
           user_current_version
         else
           needs_update = true
@@ -91,29 +91,5 @@ class API < Grape::API
         @user = User.find_by_id(params[:id])
       end
     end
-
-    desc "Create new user"
-    params do 
-      optional :invitation_code, type: String
-      # group :user
-    end
-    post do
-      user_params = params[:user].to_hash
-      if params[:invitation_code] 
-        partner = User.find_by_invitation_code(params[:invitation_code])
-        if partner
-          user_params[:partner_id] = partner.id
-        else 
-          error!({ error: ["Invitation Code is invalid"] }, HTTP_ERROR_CODE)
-        end
-      end
-
-      user = User.create(user_params)
-      if !user.valid?
-        error!({ error: user.errors.full_messages }, HTTP_ERROR_CODE)
-      else
-        return user.to_hash
-      end
-    end	
   end
 end
