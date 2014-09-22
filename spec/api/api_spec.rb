@@ -7,12 +7,46 @@ describe API, type: :request do
       it "returns an empty array of statuses" do
         get "/hello.json"
         response.status.should == 200
-        json.should == {"hello" => "world"}
+        json.should == {
+          "hello" => "world"
+        }
       end
     end
 
     describe "GET /app/version" do 
-      
+      context "with higher version" do
+        before {
+          get 'app/version', {}, {"HTTP_USER_AGENT" => "Vingle iOS/1.0.1 (iPhone Simulator; iOS 6.1)"}
+        }
+        describe "response body" do
+          it "should return json" do 
+            json.should == {
+              "current_version" => "1.0.1",
+              "needs_update" => false,
+              "needs_force_update" => false,
+              "update_message" => "Update Message",
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
+            }
+          end
+        end
+      end
+
+      context "with lower version" do
+        before {
+          get 'app/version', {}, {"HTTP_USER_AGENT" => "Vingle iOS/0.9.5b4 (iPhone Simulator; iOS 6.1)"}
+        }
+        describe "response body" do
+          it "should return json" do 
+            json.should == {
+              "current_version" => "1.0.0",
+              "needs_update" => true,
+              "needs_force_update" => false,
+              "update_message" => "Update Message",
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
+            }
+          end
+        end
+      end      
     end
 
     describe "User API" do 

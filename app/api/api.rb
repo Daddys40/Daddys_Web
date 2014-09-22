@@ -42,18 +42,22 @@ class API < Grape::API
 
       latest_version = "1.0.0"
 
+      needs_update = false
       current_version = (
         if user_current_version && user_current_version > latest_version
           user_current_version
         else
+          needs_update = true
           latest_version
         end
       )
 
       return {
-        latest_version: current_version,
+        current_version: current_version,
         update_message: "Update Message",
+        needs_update: needs_update,
         needs_force_update: false,
+        url: "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
       } 
     end
   end
