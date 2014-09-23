@@ -100,6 +100,24 @@ describe API, type: :request do
           json.should == {"errors" => ["Email has already been taken"] }       
         end
       end
+
+      describe "POST users/validate" do
+        context "when params are valid" do 
+          let!(:user) { FactoryGirl.create(:user) }
+          it "should return current user" do 
+            post "/users/validate", authentication_token: user.authentication_token
+            response.status.should == 201
+            json["current_user"]["id"].should == user.id
+          end
+        end 
+        context "when params are invalid" do 
+          it "should return current user" do 
+            post "/users/validate", authentication_token: "wrong token"
+            response.status.should == 401
+            json.should == {}
+          end
+        end 
+      end
     end
 
     describe "Authorize API" do 

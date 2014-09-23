@@ -15,8 +15,8 @@ class API < Grape::API
       env['warden']
     end
 
-    def authenticated
-      return true if warden.authenticated?
+    def authenticate!
+      return true if warden.authenticated? || current_user
       params[:authentication_token] && @user = User.find_by_authentication_token(params[:authentication_token])
     end
 
@@ -63,15 +63,14 @@ class API < Grape::API
 
   namespace "users/validate" do 
     post do
+      authenticate!
       if current_user 
         { 
           current_user: current_user.public_hash
         }
       else
         status 401
-        {
-          current_user: nil 
-        }
+        {}
       end
     end
   end
