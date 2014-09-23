@@ -26,7 +26,6 @@ class API < Grape::API
 
     def agent_version(agent)
       return agent unless agent
-
       components = agent.split(" ")
       if components.length > 2
         return components[1].split("/")[1]
@@ -57,7 +56,7 @@ class API < Grape::API
         update_message: "Update Message",
         needs_update: needs_update,
         needs_force_update: false,
-        url: "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
+        url: "https://play.google.com/store/apps/details?id=com.daddys40"
       } 
     end
   end

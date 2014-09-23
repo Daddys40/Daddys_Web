@@ -17,14 +17,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # TODO FIX 
-  # validates :gender, inclusion: GENDER.values
-  # validates :baby_name, presence: true, length: { :minimum => 1, :maximum => 128 }
-  # validates :age, presence: true
-  # validates :height, presence: true
-  # validates :weight, presence: true
-  # validates :baby_due, presence: true
+  validates :gender, inclusion: GENDER.values
+  validates :baby_name, presence: true, length: { :minimum => 1, :maximum => 128 }
+  validates :age, presence: true
+  validates :height, presence: true
+  validates :weight, presence: true
+  validates :baby_due, presence: true
 
-  # validates :authentication_token, presence: true
+  validates :authentication_token, presence: true
 
   before_create :ensure_authentication_token
 
