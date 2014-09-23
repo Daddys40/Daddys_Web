@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   validates :authentication_token, presence: true
 
-  before_create :ensure_authentication_token
+  before_validation :ensure_authentication_token, on: :create
 
   def public_hash
     ## TODO : remove private data that shoud not be exposed on client side

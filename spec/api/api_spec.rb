@@ -25,7 +25,7 @@ describe API, type: :request do
               "needs_update" => false,
               "needs_force_update" => false,
               "update_message" => "Update Message",
-              "url" => "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40"
             }
           end
         end
@@ -42,7 +42,7 @@ describe API, type: :request do
               "needs_update" => false,
               "needs_force_update" => false,
               "update_message" => "Update Message",
-              "url" => "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40"
             }
           end
         end
@@ -59,7 +59,7 @@ describe API, type: :request do
               "needs_update" => true,
               "needs_force_update" => false,
               "update_message" => "Update Message",
-              "url" => "https://play.google.com/store/apps/details?id=com.daddys40&hl=ko"
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40"
             }
           end
         end
@@ -82,6 +82,22 @@ describe API, type: :request do
           } 
           response.should be_success
           json["current_user"]["email"].should == "breath103@gmail.com"
+        end
+        it "should fail for invalid data" do 
+          user = FactoryGirl.create(:user, email: "breath103@gmail.com")
+          post "/users", user: {
+            email: "breath103@gmail.com",
+            password: "123123123",
+            name: "Kurt Sang Hyun Lee",
+            gender: "male",
+            baby_name: "Mong Mong", 
+            age: 123,
+            height: 171,
+            weight: 52,
+            baby_due: "2014-09-09 18:39:42 +0900",
+          } 
+          response.status.should == 422
+          json.should == {"errors" => ["Email has already been taken"] }       
         end
       end
     end
