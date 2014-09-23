@@ -1,4 +1,4 @@
-angular.module('daddys')
+angular.module('frenddy')
   .directive('popover', [function () {
     return {
       restrict: 'A',

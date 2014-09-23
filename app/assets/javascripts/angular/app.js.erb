@@ -3,7 +3,7 @@
 #= depend_on_asset "login_dialog.html"
 
 'use strict';
-angular.module('daddys', ['ngRoute', 'ngAnimate', 'daddysControllers'])
+angular.module('frenddy', ['ngRoute', 'ngAnimate', 'daddysControllers'])
   .config(["$httpProvider", function ($httpProvider) {
     var token = $('meta[name=csrf-token]').attr('content');
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = token;

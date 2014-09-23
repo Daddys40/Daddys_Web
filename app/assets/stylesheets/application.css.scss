@@ -20,3 +20,15 @@ body, html {
 	font-size: 17px;
 	font-weight: 300;
 }
+
+
+div.spinner {
+	width: 66px;
+	height: 66px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -33px;
+	margin-top: -33px;
+	background-image: url("/assets/spinner.gif")
+}

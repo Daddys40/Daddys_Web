@@ -1,4 +1,4 @@
-angular.module('daddys')
+angular.module('frenddy')
   .directive('loginDialog', ["AUTH_EVENTS", function (AUTH_EVENTS) {
     return {
       restrict: 'A',
@@ -14,7 +14,7 @@ angular.module('daddys')
         }
 
         scope.$on(AUTH_EVENTS.notAuthenticated, showDialog);
-        scope.$on(AUTH_EVENTS.logoutSuccess,    showDialog);
+        scope.$on(AUTH_EVENTS.logoutSuccess, showDialog);
 
         scope.$on(AUTH_EVENTS.loginSuccess, closeDialog);
       }

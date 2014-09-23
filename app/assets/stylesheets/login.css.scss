@@ -9,13 +9,14 @@
 .login-dialog-view {
 	background-color: rgba(0, 0, 0, 0.8);
 	z-index: 1000;
-
-
-  transition: opacity linear 0.2s;
-
-  &.ng-hide {
-	  opacity: 0;
+	&.ng-hide {
+	  transition: opacity linear 0.2s;
+		opacity: 0;
 	}
+  &:not(.ng-hide) {
+    transition: opacity linear 0.2s;
+	  opacity: 1;
+  }
 }
 
 .login-dialog {

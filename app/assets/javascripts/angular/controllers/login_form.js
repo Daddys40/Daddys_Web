@@ -4,9 +4,7 @@ angular.module('daddysControllers', ['daddysAuth'])
       email: '',
       password: ''
     };
-
     $scope.errorMessage = ""
-    
     $scope.login = function (credentials) {
       AuthService.signIn(credentials).then(
         function () {
@@ -19,8 +17,7 @@ angular.module('daddysControllers', ['daddysAuth'])
       );
     };
   }])
-  .controller('MainCtrl', ["$scope", "Session", function ($scope, Session) {
-    $scope.session = Session;
+  .controller('MainCtrl', ["$scope", function ($scope) {
   }])
   .controller('UsersCtrl', ["$scope", "User", function ($scope, User) {
     $scope.users = [];
@@ -28,6 +25,10 @@ angular.module('daddysControllers', ['daddysAuth'])
     User.query(function (users){
       $scope.users = users;
     });
+  }])
+  .controller('ApplicationCtrl', ["$scope", "Session", function ($scope, Session) {
+    $scope.session = Session;
   }]);
+  
 
   
