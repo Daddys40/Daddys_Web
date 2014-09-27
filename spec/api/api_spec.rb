@@ -79,23 +79,6 @@ describe API, type: :request do
             }
           end
         end
-
-        describe "Partner APIs" do 
-          let(:user) { FactoryGirl.create(:user) }
-          let(:user2) { FactoryGirl.create(:user) }
-          before do 
-            user2.generate_invitation_code
-            user2.save
-          end
-          it "should connect other user" do 
-            post "/users/me/partner", authentication_token: user.authentication_token, invitation_code: user2.invitation_code
-            user.reload
-            user2.reload
-
-            user.partner_id.should == user2.id
-            user2.partner_id.should == user.id
-          end
-        end
       end
 
       describe "POST api/users" do 
@@ -129,6 +112,35 @@ describe API, type: :request do
           } 
           response.status.should == 422
           json.should == {"errors" => ["Email has already been taken"] }       
+        end
+
+        context "with invitation_code" do 
+          let(:user2) { FactoryGirl.create(:user) }
+          before do 
+            user2.generate_invitation_code
+            user2.save
+          end
+          it "should connect other user" do 
+            post "/users", user: {
+              email: "breath103@gmail.com",
+              password: "123123123",
+              name: "Kurt Sang Hyun Lee",
+              gender: "male",
+              baby_name: "Mong Mong", 
+              age: 123,
+              height: 171,
+              weight: 52,
+              baby_due: "2014-09-09 18:39:42 +0900",
+              partner_invitation_code: user2.invitation_code
+            } 
+
+            response.should be_success
+            user = User.find_by_email("breath103@gmail.com")
+            user.partner_id.should == user2.id
+
+            user2.reload
+            user2.partner_id.should == user.id
+          end
         end
       end
 

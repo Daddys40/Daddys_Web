@@ -16,17 +16,25 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  attr_accessor :partner_invitation_code
+
+  has_one :partner, class_name: User.to_s, foreign_key: "partner_id"
+
   # TODO FIX 
-  validates :gender, inclusion: GENDER.values
-  validates :baby_name, presence: true, length: { :minimum => 1, :maximum => 128 }
-  validates :age, presence: true
-  validates :height, presence: true
-  validates :weight, presence: true
-  validates :baby_due, presence: true
+  # validates :gender, inclusion: GENDER.values
+  # validates :baby_name, presence: true, length: { :minimum => 1, :maximum => 128 }
+  # validates :age, presence: true
+  # validates :height, presence: true
+  # validates :weight, presence: true
+  # validates :baby_due, presence: true
 
   validates :authentication_token, presence: true
 
+  # before_create :create_with_invitation_code, if: lambda { |user| user.partner_invitation_code }
   before_validation :ensure_authentication_token, on: :create
+  before_validation :check_invitation_code, on: :create, if: lambda { |user| user.partner_invitation_code }
+
+  after_create :set_opponent_partner, #, if: "partner_id_changed?"
 
   def public_hash
     ## TODO : remove private data that shoud not be exposed on client side
@@ -40,6 +48,21 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def check_invitation_code  
+    partner = User.find_by_invitation_code(self.partner_invitation_code)
+    if partner
+      self.partner_id = partner.id
+    else
+      self.errors.add(:partner_invitation_code, "It's invalid invitation code")
+    end
+  end
+
+  def set_opponent_partner
+    if partner_id 
+      User.find_by_id(partner_id).update_attribute(:partner_id, self.id)
+    end
+  end
 
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token
