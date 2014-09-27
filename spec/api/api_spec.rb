@@ -67,6 +67,37 @@ describe API, type: :request do
     end
 
     describe "User API" do 
+      describe "me APIs" do 
+        describe "POST api/users/me/invitation" do 
+          it "should generate invitation code" do 
+            user = FactoryGirl.create(:user, email: "breath103@gmail.com")
+
+            post "/users/me/invitation", authentication_token: user.authentication_token
+
+            json.should == { 
+              "invitation_code" => user.reload.invitation_code
+            }
+          end
+        end
+
+        describe "Partner APIs" do 
+          let(:user) { FactoryGirl.create(:user) }
+          let(:user2) { FactoryGirl.create(:user) }
+          before do 
+            user2.generate_invitation_code
+            user2.save
+          end
+          it "should connect other user" do 
+            post "/users/me/partner", authentication_token: user.authentication_token, invitation_code: user2.invitation_code
+            user.reload
+            user2.reload
+
+            user.partner_id.should == user2.id
+            user2.partner_id.should == user.id
+          end
+        end
+      end
+
       describe "POST api/users" do 
         it "should create user" do 
           post "/users", user: {
@@ -119,6 +150,7 @@ describe API, type: :request do
         end 
       end
     end
+
 
     describe "Authorize API" do 
       describe "POST users/sign_in" do 

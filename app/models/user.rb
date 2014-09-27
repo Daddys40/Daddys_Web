@@ -33,6 +33,12 @@ class User < ActiveRecord::Base
     return JSON.parse(self.to_json)
   end
 
+  def generate_invitation_code
+    begin
+      self.invitation_code = Digest::SHA1.hexdigest([Time.now, rand].join)[0,4].upcase
+    end while User.find_by_invitation_code(self.invitation_code)
+  end
+
   private
 
   def ensure_authentication_token

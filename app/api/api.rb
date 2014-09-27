@@ -21,7 +21,8 @@ class API < Grape::API
     end
 
     def current_user
-      warden.user || @user
+      return @current_user if @current_user 
+      return @current_user = (warden.user || @user)
     end
 
     def agent_version(agent)
@@ -87,6 +88,20 @@ class API < Grape::API
     namespace ":id" do
       before do 
         @user = User.find_by_id(params[:id])
+      end
+    end
+
+    namespace "me" do 
+      before do 
+        authenticate!
+      end
+
+      post "invitation" do
+        current_user.generate_invitation_code
+        current_user.save
+        return {
+          invitation_code: current_user.invitation_code
+        }
       end
     end
   end
