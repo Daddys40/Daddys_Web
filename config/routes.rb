@@ -9,5 +9,8 @@ Rails.application.routes.draw do
   	resources :home
   end
 
+  get  'about/terms' => 'about#terms'
+  get  'about/privacy' => 'about#privacy'
+
   mount API => "/"
 end
