@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
     self.role ||= :user
   end
 
+  has_many :cards
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

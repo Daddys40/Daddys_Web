@@ -18,9 +18,11 @@ gem 'awesome_print'
 gem 'cancan'
 gem 'grape', '~> 0.9.0'
 gem 'grape-jbuilder', '0.2.0'
+
 group :doc do 
   gem 'sdoc', '~> 0.4.0'
 end
+
 group :development do
   gem 'spring'
   gem 'better_errors'
@@ -33,14 +35,17 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
 end
+
 group :production do
   gem 'unicorn'
 end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner'

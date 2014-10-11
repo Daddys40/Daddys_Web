@@ -116,38 +116,56 @@ class API < Grape::API
         authenticate!
       end
 
-      get "feed" do 
-        return {
-          data: [
-            {
-              title: "Some Title", 
-              week: 15,
-              content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
-              resources: [
-                {
-                  type: "image",
-                  width: 320,
-                  height: 200,
-                  image_url: "http://cfile30.uf.tistory.com/image/21769F46533A841516123F"
-                }
-              ]
-            },
-            {
-              title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
-              week: 15,
-              content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
-              resources: [
-              ]
-            },
-            {
-              title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
-              week: 15,
-              content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
-              resources: [
-              ]
-            }
-          ] 
-        }
+      namespace "cards" do 
+        get do 
+          return {
+            data: [
+              {
+                title: "Some Title", 
+                week: 15,
+                content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
+                resources: [
+                  {
+                    type: "image",
+                    width: 320,
+                    height: 200,
+                    image_url: "http://cfile30.uf.tistory.com/image/21769F46533A841516123F"
+                  }
+                ]
+              },
+              {
+                title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
+                week: 15,
+                content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
+                resources: [
+                ]
+              },
+              {
+                title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
+                week: 15,
+                content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
+                resources: [
+                ]
+              }
+            ] 
+          }
+        end
+
+        get ":id" do 
+          return {
+            title: "Some Title", 
+            week: 15,
+            content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
+            resources: [
+              {
+                type: "image",
+                width: 320,
+                height: 200,
+                image_url: "http://cfile30.uf.tistory.com/image/21769F46533A841516123F"
+              }
+            ]
+          }
+        end
       end
 
       post "invitation" do
