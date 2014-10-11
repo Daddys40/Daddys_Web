@@ -33,6 +33,16 @@ class API < Grape::API
       end
       return nil;
     end
+
+     def is_request_from_ios?
+      user_agent = request.env["HTTP_USER_AGENT"]
+      user_agent and (user_agent.include?("iPhone") or user_agent.include?("iPod") or user_agent.include?("iPad"))
+    end
+
+    def is_request_from_android?
+      user_agent = request.env["HTTP_USER_AGENT"]
+      user_agent && user_agent.include?("Android")
+    end
   end
 
 
@@ -59,6 +69,16 @@ class API < Grape::API
         needs_force_update: false,
         url: "https://play.google.com/store/apps/details?id=com.daddys40"
       } 
+    end
+
+    get :install do 
+      if is_request_from_android? 
+        redirect("https://play.google.com/store/apps/details?id=com.daddys40")
+      elsif is_request_from_ios?
+        "Sorry. iOS app is comming soon"
+      else
+        "Sorry. app is not supported on your platform"
+      end
     end
   end
 
