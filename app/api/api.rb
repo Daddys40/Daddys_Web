@@ -121,6 +121,7 @@ class API < Grape::API
           return {
             data: [
               {
+                id: 1,
                 title: "Some Title", 
                 week: 15,
                 content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
@@ -134,17 +135,31 @@ class API < Grape::API
                 ]
               },
               {
+                id: 2,
                 title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
                 week: 15,
                 content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
                 resources: [
+                  {
+                    type: "image",
+                    width: 320,
+                    height: 200,
+                    image_url: "http://scbbs3.sportschosun.com/Pds/Board/funfum04/%EC%8B%A4%EC%A1%B4%ED%95%98%EB%8A%94_%EC%BD%9C%EB%9D%BC%EB%B3%91_%EB%AA%B8%EB%A7%A4_%EC%A0%9C%EB%8B%88%ED%8D%BC%EB%A1%9C%EB%A0%8C%EC%8A%A41.jpg"
+                  }
                 ]
               },
               {
+                id: 3,
                 title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
                 week: 15,
                 content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
                 resources: [
+                  {
+                    type: "image",
+                    width: 320,
+                    height: 200,
+                    image_url: "http://scbbs3.sportschosun.com/Pds/Board/funfum04/%EC%8B%A4%EC%A1%B4%ED%95%98%EB%8A%94_%EC%BD%9C%EB%9D%BC%EB%B3%91_%EB%AA%B8%EB%A7%A4_%EC%A0%9C%EB%8B%88%ED%8D%BC%EB%A1%9C%EB%A0%8C%EC%8A%A41.jpg"
+                  }
                 ]
               }
             ] 
@@ -153,6 +168,7 @@ class API < Grape::API
 
         get ":id" do 
           return {
+            id: 1,
             title: "Some Title", 
             week: 15,
             content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
