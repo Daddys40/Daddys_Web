@@ -18,6 +18,9 @@ gem 'awesome_print'
 gem 'cancan'
 gem 'grape', '~> 0.9.0'
 gem 'grape-jbuilder', '0.2.0'
+gem 'rabl', '0.9.0'
+gem 'oj'
+gem 'grape-rabl'
 
 group :doc do 
   gem 'sdoc', '~> 0.4.0'

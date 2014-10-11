@@ -11,16 +11,11 @@ class RegistrationsController < Devise::RegistrationsController
     if resource_saved
       if resource.active_for_authentication?
         sign_up(resource_name, resource)
-      	render({ 
-		      json: { current_user: resource.public_hash }, 
-		      status: 200
-		    })
+        render( template: "users/auth.rabl" )
       else
         expire_data_after_sign_in!
-      	render({ 
-		      json: { current_user: resource.public_hash }, 
-		      status: 200
-		    })
+        @user = resource
+        render( template: "users/auth.rabl" )
       end
     else
       clean_up_passwords resource

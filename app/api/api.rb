@@ -1,6 +1,7 @@
 class API < Grape::API
   format :json
   default_format :json
+  formatter :json, Grape::Formatter::Rabl  
   content_type :json, "application/json; charset=utf-8"
 
   HTTP_ERROR_CODE = 422
@@ -83,15 +84,12 @@ class API < Grape::API
   end
 
   namespace "users/validate" do 
-    post do
+    post "", rabl: "users/auth" do
       authenticate!
       if current_user 
-        { 
-          current_user: current_user.public_hash
-        }
+        @user = current_user
       else
-        status 401
-        {}
+        error!({}, 401)
       end
     end
   end

@@ -40,16 +40,6 @@ class User < ActiveRecord::Base
 
   after_create :set_opponent_partner, #, if: "partner_id_changed?"
 
-  def public_hash
-    ## TODO : remove private data that shoud not be exposed on client side
-    json = self.to_json
-    json = JSON.parse(self.to_json)
-    if self.notificate_at
-      json["notificate_at"] = self.notificate_at.to_s(:time)
-    end
-    return json
-  end
-
   def generate_invitation_code
     begin
       self.invitation_code = Digest::SHA1.hexdigest([Time.now, rand].join)[0,4].upcase

@@ -143,7 +143,11 @@ describe API, type: :request do
             } 
 
             response.should be_success
+
             user = User.find_by_email("breath103@gmail.com")
+
+            json["current_user"]["id"].should == user.id
+            json["current_user"]["partner"]["id"].should == user2.id
             user.partner_id.should == user2.id
 
             user2.reload
@@ -170,7 +174,6 @@ describe API, type: :request do
         end 
       end
     end
-
 
     describe "Authorize API" do 
       describe "POST users/sign_in" do 

@@ -24,7 +24,21 @@ module Daddys40
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
 
+    config.middleware.use(Rack::Config) do |env|
+      env['api.tilt.root'] = Rails.root.join "app", "views"
+    end
+
+    Rabl.configure do |config|
+      config.include_json_root  = false
+      config.include_child_root = false
+    end
+
+    Grape::Rabl.configure do |config|
+      config.cache_template_loading = true # default: false
+    end
+
     START_TIME = Time.now
+
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
