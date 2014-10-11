@@ -116,6 +116,20 @@ class API < Grape::API
         authenticate!
       end
 
+      namespace "questions" do 
+        get do 
+          "!!!!"
+        end
+
+        get "new" do 
+          redirect "/users/me/questions"
+          # if user.new_question 
+          # else 
+          #   error!({errors: ["no more questions for this week"] }, 404)
+          # end
+        end
+      end
+
       namespace "cards" do 
         get do 
           return {
