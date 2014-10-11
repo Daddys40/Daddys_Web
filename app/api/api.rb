@@ -138,6 +138,7 @@ class API < Grape::API
                 id: 1,
                 title: "Some Title", 
                 week: 15,
+                readed: false,
                 content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
                 resources: [
                   {
@@ -152,6 +153,7 @@ class API < Grape::API
                 id: 2,
                 title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
                 week: 15,
+                readed: false,
                 content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
                 resources: [
                   {
@@ -166,6 +168,7 @@ class API < Grape::API
                 id: 3,
                 title: "Some ㅎㄴㅇㅎㅁㄴㅎㄴㅇㅎ", 
                 week: 15,
+                readed: false,
                 content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
                 resources: [
                   {
@@ -185,6 +188,7 @@ class API < Grape::API
             id: 1,
             title: "Some Title", 
             week: 15,
+            readed: true,
             content: "asldjghsajlgsdghjsdlf lksdajfhdk fhsfljkshdl kfhlsadjkhsdjaklfhlsadkj fadhsjf sjfkl dskjfhsjkda fljksadfk lalfkhsaldjk fhsdafas df",
             resources: [
               {
