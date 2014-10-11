@@ -42,7 +42,9 @@ class User < ActiveRecord::Base
     ## TODO : remove private data that shoud not be exposed on client side
     json = self.to_json
     json = JSON.parse(self.to_json)
-    json["notificate_at"] = self.notificate_at.to_s(:time)
+    if self.notificate_at
+      json["notificate_at"] = self.notificate_at.to_s(:time)
+    end
     return json
   end
 
