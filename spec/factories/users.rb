@@ -10,7 +10,8 @@ FactoryGirl.define do
   	height 124
   	weight 123
   	baby_due Time.now
-
+    notifications_days "135"
+    notificate_at Time.now
     trait :admin do
       role 'admin'
     end

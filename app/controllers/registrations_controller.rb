@@ -38,6 +38,6 @@ class RegistrationsController < Devise::RegistrationsController
   protected
   
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push(:name, :gender, :baby_name, :age, :height, :weight, :baby_due, :partner_invitation_code)
+    devise_parameter_sanitizer.for(:sign_up).push(:name, :gender, :baby_name, :age, :height, :weight, :baby_due, :partner_invitation_code, :notifications_days, :notificate_at)
   end
 end

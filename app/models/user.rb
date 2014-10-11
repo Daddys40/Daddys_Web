@@ -23,12 +23,14 @@ class User < ActiveRecord::Base
   # TODO FIX 
   # validates :gender, inclusion: GENDER.values
   # validates :baby_name, presence: true, length: { :minimum => 1, :maximum => 128 }
-  # validates :age, presence: true
+  # validates :age, presence: true  
   # validates :height, presence: true
   # validates :weight, presence: true
   # validates :baby_due, presence: true
 
   validates :authentication_token, presence: true
+  validates :notifications_days, presence: true, length: { is: 3 }, format: { with: /\A[0-9]+\z/,
+    message: "only allows numbers" }
 
   # before_create :create_with_invitation_code, if: lambda { |user| user.partner_invitation_code }
   before_validation :ensure_authentication_token, on: :create
@@ -38,7 +40,10 @@ class User < ActiveRecord::Base
 
   def public_hash
     ## TODO : remove private data that shoud not be exposed on client side
-    return JSON.parse(self.to_json)
+    json = self.to_json
+    json = JSON.parse(self.to_json)
+    json["notificate_at"] = self.notificate_at.to_s(:time)
+    return json
   end
 
   def generate_invitation_code

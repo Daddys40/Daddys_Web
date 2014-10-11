@@ -82,6 +82,7 @@ describe API, type: :request do
       end
 
       describe "POST api/users" do 
+        let(:now) { Time.now }
         it "should create user" do 
           post "/users", user: {
             email: "breath103@gmail.com",
@@ -92,10 +93,13 @@ describe API, type: :request do
             age: 123,
             height: 171,
             weight: 52,
+            notifications_days: "135",
+            notificate_at: "16:40",
             baby_due: "2014-09-09 18:39:42 +0900",
           } 
           response.should be_success
           json["current_user"]["email"].should == "breath103@gmail.com"
+          json["current_user"]["notificate_at"].should == "16:40"
         end
         it "should fail for invalid data" do 
           user = FactoryGirl.create(:user, email: "breath103@gmail.com")
@@ -108,6 +112,8 @@ describe API, type: :request do
             age: 123,
             height: 171,
             weight: 52,
+            notifications_days: "135",
+            notificate_at: now,
             baby_due: "2014-09-09 18:39:42 +0900",
           } 
           response.status.should == 422
@@ -131,6 +137,8 @@ describe API, type: :request do
               height: 171,
               weight: 52,
               baby_due: "2014-09-09 18:39:42 +0900",
+              notifications_days: "135",
+              notificate_at: now,
               partner_invitation_code: user2.invitation_code
             } 
 
