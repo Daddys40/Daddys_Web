@@ -10,3 +10,22 @@ html ng-app="frenddy" ng-controller="ApplicationCtrl"
     == javascript_include_tag 'application'
     == csrf_meta_tags
   body
+		div login-dialog=""
+		  div ng-show="visible" ng-cloak="" class="fs-view login-dialog-view" ng-include="'#{asset_path("login_dialog.html")}'"
+		div class="page-container" ng-switch="!!session.user"
+		  div class="spinner" ng-switch-when="false"
+		  div class="signed-view" ng-clock="" ng-switch-when="true"
+		    nav class="navbar navbar-default" role="navigation" ng-controller="NavbarCtrl"
+		      div class="container-fluid"
+		        div class="navbar-header"
+		          a class="navbar-brand" href="#" Frenddy
+		          small = Daddys40::Application::START_TIME
+		        div class="collapse navbar-collapse"
+		          ul class="nav navbar-nav navbar-right"
+		            li 
+		              a 
+		                | {{ session.user.name }}
+		            li ng-if="session.user"
+		              a href="" ng-click="signOut()" Sign Out
+		    div ng-view=""
+		  div class="non-signed-view" ng-clock="" ng-switch-when="false"

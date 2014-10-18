@@ -2,7 +2,7 @@ div class="container"
   h3 
     | Users
   ul class="users-list" 
-    table
+    table class="table table-striped"
       thead
       tbody
         tr ng-repeat="user in users" class="user"
@@ -19,3 +19,7 @@ div class="container"
             | {{ user.baby_due }}
           td 
             | {{ user.baby_name }}
+          td 
+            | {{ user.notifications_days }}
+          td 
+            | {{ user.notificate_at }}
