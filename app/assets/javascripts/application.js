@@ -24,3 +24,4 @@
 //= require_tree ./angular/providers
 //= require_tree ./angular/directives
 //= require_tree ./angular/controllers
+//= require_tree ./angular/filters

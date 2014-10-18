@@ -20,6 +20,6 @@ div class="container"
           td 
             | {{ user.baby_name }}
           td 
-            | {{ user.notifications_days }}
+            | {{ user.notifications_days | notificationsDays }}
           td 
             | {{ user.notificate_at }}
