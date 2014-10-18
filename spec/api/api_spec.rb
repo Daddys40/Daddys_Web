@@ -175,6 +175,25 @@ describe API, type: :request do
       end
     end
 
+    describe "Cards API" do 
+      let(:user) { FactoryGirl.create(:user) }
+      let!(:cards) { 
+        [ FactoryGirl.create(:card, user: user),
+          FactoryGirl.create(:card, user: user) ]
+      }
+      describe "GET me/cards" do 
+        it "should return cards" do 
+          get "/users/me/cards.json", authentication_token: user.authentication_token
+          json.should == ""
+          json["data"].length.should == 2
+          (json["data"].collect { |card| card["id"] }).should == cards.map(&:id)
+        end
+      end
+      describe "GET me/cards/:id" do 
+
+      end
+    end
+
     describe "Authorize API" do 
       describe "POST users/sign_in" do 
         let!(:user) { FactoryGirl.create(:user, password: "12341234") }
