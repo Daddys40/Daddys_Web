@@ -12,5 +12,8 @@ Rails.application.routes.draw do
   get 'about/terms' => 'about#terms'
   get 'about/privacy' => 'about#privacy'
 
+  scope :path => "users/me" do 
+    resources :questions
+  end
   mount API => "/"
 end

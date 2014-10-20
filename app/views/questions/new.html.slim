@@ -1,0 +1,25 @@
+// Main Page
+doctype html
+html
+  head
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    title
+      = content_for?(:title) ? yield(:title) : "Frenddy"
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Frenddy'}"
+    == stylesheet_link_tag("application", media: 'all')
+    == javascript_include_tag 'application'
+    == csrf_meta_tags
+  body
+  	div class="container"
+  		h4 = @question	
+  		form method="POST" action=questions_path
+  			div class="radio"
+  				label
+  					input type="radio" name="answer" value="1"
+  					b 예
+  			div class="radio"
+  				label
+  					input type="radio" name="answer" value="1"
+  					b 아니요	
+  			button type="submit" class="btn btn-danger btn-sm btn-block" 
+  				| 확인

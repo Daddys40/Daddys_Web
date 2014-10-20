@@ -18,7 +18,7 @@ class API < Grape::API
 
     def authenticate!
       return true if warden.authenticated? || current_user
-      params[:authentication_token] && @user = User.find_by_authentication_token(params[:authentication_token])
+      @user = User.find_by_authentication_token(params[:authentication_token]) if params[:authentication_token]
     end
 
     def current_user
@@ -96,8 +96,9 @@ class API < Grape::API
 
 	namespace "users" do 
     desc "Query users"
-    get do 
-      User.all
+
+    get "", rabl: "users/users" do 
+      @users = User.all.to_a
     end
 
     params do 
@@ -114,19 +115,19 @@ class API < Grape::API
         authenticate!
       end
 
-      namespace "questions" do 
-        get do 
-          "!!!!"
-        end
+      # namespace "questions" do 
+      #   get do 
+      #     "!!!!"
+      #   end
 
-        get "new" do 
-          redirect "/users/me/questions"
-          # if user.new_question 
-          # else 
-          #   error!({errors: ["no more questions for this week"] }, 404)
-          # end
-        end
-      end
+      #   get "new" do 
+      #     redirect "/users/me/questions"
+      #     # if user.new_question 
+      #     # else 
+      #     #   error!({errors: ["no more questions for this week"] }, 404)
+      #     # end
+      #   end
+      # end
 
       namespace "cards" do 
         get "", rabl: "cards/cards" do
