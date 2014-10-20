@@ -11,11 +11,16 @@ html
     == csrf_meta_tags
   body
   	div class="container"
-  		h4 = @question	
-  		form method="POST" action=questions_path
+  		h4 
+  			= "#{@user.name}님, "
+  			= @question	
+	    = form_tag questions_path, :method => :post do 
+	    	= hidden_field_tag  :authentication_token, params[:authentication_token]
+	    	= hidden_field_tag  :week, params[:week]
+	    	= hidden_field_tag  :count, params[:count]
   			div class="radio"
   				label
-  					input type="radio" name="answer" value="1"
+  					input type="radio" name="answer" value="1" checked=""
   					b 예
   			div class="radio"
   				label

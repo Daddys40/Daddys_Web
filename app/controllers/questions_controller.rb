@@ -9,19 +9,38 @@ class QuestionsController < ApplicationController
 			SHEET.cell(1 + ((week - 5) * 3 + count), 2)
 		end
 
-		def self.yes_anwser(week, count) 
+		def self.anwser_text(answer, gender, week, count) 
 			return nil if week < 5 
-			a = SHEET.cell(1 + ((week - 5) * 3 + count), 3) 
-			b = SHEET.cell(1 + ((week - 5) * 3 + count), 8) 
-			"#{a}\n##{b}"
-		end
-
-		def self.no_anwser(week, count) 
-			return nil if week < 5 
-			a = SHEET.cell(1 + ((week - 5) * 3 + count), 4) 
-			b = SHEET.cell(1 + ((week - 5) * 3 + count), 6) 
-			"#{a}\n#{b}"
-		end
+			if answer 
+				if gender == 'male'
+					a = SHEET.cell(1 + ((week - 5) * 3 + count), 3) 
+					b = SHEET.cell(1 + ((week - 5) * 3 + count), 7) 
+					{
+						title: a,
+						content: b
+					}
+				else 
+					{
+						title: "검사 결과입니다",
+						content: SHEET.cell(1 + ((week - 5) * 3 + count), 5) 
+					}
+				end
+			else
+				if gender == 'male'
+					a = SHEET.cell(1 + ((week - 5) * 3 + count), 4) 
+					b = SHEET.cell(1 + ((week - 5) * 3 + count), 8) 
+					{
+						title: a,
+						content: b
+					}
+				else 
+					{
+						title: "검사 결과입니다",
+						content: SHEET.cell(1 + ((week - 5) * 3 + count), 5) 
+					}
+				end
+			end
+ 		end
  	end
 
 	def new
@@ -30,7 +49,16 @@ class QuestionsController < ApplicationController
 	end
 	
 	def create
-			
+		@user = User.find_by_authentication_token(params[:authentication_token])
+		@answer = params[:answer].to_i != 0
+
+		my_anwser_text = QuestionSheet.anwser_text(@answer, "female", params[:week].to_i, params[:count].to_i)
+		@user.cards.create(title: my_anwser_text[:title], content: my_anwser_text[:content], week: params[:week].to_i, resources_count: 0)
+
+		if @user.partner
+			partner_anwser_text = QuestionSheet.anwser_text(@answer, "male", params[:week].to_i, params[:count].to_i)
+			@user.partner.cards.create(title: partner_anwser_text[:title], content: partner_anwser_text[:content], week: params[:week].to_i, resources_count: 0)
+		end
 	end
 
 	def no_question
