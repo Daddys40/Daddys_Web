@@ -9,6 +9,21 @@ class QuestionsController < ApplicationController
 			SHEET.cell(1 + ((week - 5) * 3 + count), 2)
 		end
 
+		def self.normal_data(gender, week, count) 
+			return nil if week < 5 
+			if gender == 'male'
+				{
+					title: SHEET.cell(1 + ((week - 5) * 3 + count), 11), 
+					content: SHEET.cell(1 + ((week - 5) * 3 + count), 12) 
+				}
+			else 
+				{
+					title: SHEET.cell(1 + ((week - 5) * 3 + count), 10), 
+					content: SHEET.cell(1 + ((week - 5) * 3 + count), 12)
+				}
+			end
+		end 
+
 		def self.anwser_text(answer, gender, week, count) 
 			return nil if week < 5 
 			if answer 
