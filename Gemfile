@@ -22,6 +22,7 @@ gem 'rabl', '0.9.0'
 gem 'oj'
 gem 'grape-rabl'
 gem 'roo'
+gem 'browserlog', '~> 0.0.2'
 
 group :doc do 
   gem 'sdoc', '~> 0.4.0'

@@ -41,6 +41,9 @@ GEM
       rack (>= 0.9.0)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    browserlog (0.0.2)
+      jquery-rails (~> 3)
+      rails (>= 3.2.18)
     builder (3.2.2)
     cancan (1.6.10)
     capybara (2.4.1)
@@ -300,6 +303,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   bootstrap-sass
+  browserlog (~> 0.0.2)
   cancan
   capybara
   coffee-rails (~> 4.0.0)

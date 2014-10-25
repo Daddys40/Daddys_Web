@@ -16,4 +16,6 @@ Rails.application.routes.draw do
     resources :questions
   end
   mount API => "/"
+
+  mount Browserlog::Engine => '/logs'
 end
