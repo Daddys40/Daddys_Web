@@ -79,6 +79,15 @@ describe API, type: :request do
             }
           end
         end
+
+        describe "PUT update" do 
+          let(:user) { FactoryGirl.create(:user, email: "breath103@gmail.com") }
+          it "should update user model" do
+            put "/users/me", user: { notifications_days: "012" }, authentication_token: user.authentication_token
+            user.reload.notifications_days.should == "012"
+            json["current_user"]["notifications_days"].should == "012"
+          end
+        end
       end
 
       describe "POST api/users" do 
@@ -169,7 +178,7 @@ describe API, type: :request do
           it "should return current user" do 
             post "/users/validate", authentication_token: "wrong token"
             response.status.should == 401
-            json.should == {}
+            json.should == {"error"=>"Unauthorized"}
           end
         end 
       end
@@ -184,13 +193,18 @@ describe API, type: :request do
       describe "GET me/cards" do 
         it "should return cards" do 
           get "/users/me/cards.json", authentication_token: user.authentication_token
-          json.should == ""
-          json["data"].length.should == 2
-          (json["data"].collect { |card| card["id"] }).should == cards.map(&:id)
+          json.length.should == 2
+          (json.collect { |card| card["id"] }).should == cards.map(&:id)
         end
       end
       describe "GET me/cards/:id" do 
-
+        it "should return cards" do 
+          cards[0].readed.should == false
+          get "/users/me/cards/#{cards[0].id}.json", authentication_token: user.authentication_token
+          ap json
+          json["id"].should == cards[0].id
+          json["readed"].should == true
+        end
       end
     end
 

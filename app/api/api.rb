@@ -12,18 +12,27 @@ class API < Grape::API
 
 
   helpers do
+    def declared_params
+      declared(params, include_missing: false)
+    end
+
     def warden
       env['warden']
     end
 
+    def not_found?(model)
+      error!({error: "Not Found "}, 404) unless model
+    end
+
     def authenticate!
       return true if warden.authenticated? || current_user
-      @user = User.find_by_authentication_token(params[:authentication_token]) if params[:authentication_token]
+      @current_user ||= User.find_by_authentication_token(params[:authentication_token]) if params[:authentication_token]
+      @current_user ||= warden.user 
+      error!({error: "Unauthorized"}, 401) unless @current_user
     end
 
     def current_user
-      return @current_user if @current_user 
-      return @current_user = (warden.user || @user)
+      return @current_user
     end
 
     def agent_version(agent)
@@ -86,11 +95,7 @@ class API < Grape::API
   namespace "users/validate" do 
     post "", rabl: "users/auth" do
       authenticate!
-      if current_user 
-        @user = current_user
-      else
-        error!({}, 401)
-      end
+      @user = current_user
     end
   end
 
@@ -115,6 +120,12 @@ class API < Grape::API
         authenticate!
       end
 
+      put "", rabl: "users/auth" do 
+        authenticate!
+        current_user.update_attributes(params[:user])
+        @user = current_user
+      end
+
       namespace "cards" do 
         get "", rabl: "cards/cards" do
           if params[:week] && params[:count]
@@ -127,14 +138,15 @@ class API < Grape::API
               week: week, 
               resources_count: 0 
             })
-
           end
           @cards = current_user.cards
         end
 
         namespace ":id" do 
-          get "" do 
+          get "", rabl: "cards/card" do 
             @card = current_user.cards.find_by_id(params[:id])
+            @card.update_attribute(:readed, true)
+            not_found?(@card)
           end
         end
       end
