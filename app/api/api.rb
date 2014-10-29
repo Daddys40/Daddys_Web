@@ -122,7 +122,7 @@ class API < Grape::API
 
       put "", rabl: "users/auth" do 
         authenticate!
-        current_user.update_attributes(params[:user])
+        current_user.update_attributes(params[:user].to_h)
         @user = current_user
       end
 

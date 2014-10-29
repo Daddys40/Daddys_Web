@@ -201,7 +201,6 @@ describe API, type: :request do
         it "should return cards" do 
           cards[0].readed.should == false
           get "/users/me/cards/#{cards[0].id}.json", authentication_token: user.authentication_token
-          ap json
           json["id"].should == cards[0].id
           json["readed"].should == true
         end
