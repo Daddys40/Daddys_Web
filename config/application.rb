@@ -27,7 +27,7 @@ module Daddys40
     config.middleware.use(Rack::Config) do |env|
       env['api.tilt.root'] = Rails.root.join "app", "views"
     end
-
+    
     Rabl.configure do |config|
       config.include_json_root  = false
       config.include_child_root = false
