@@ -143,7 +143,7 @@ class API < Grape::API
               resources_count: 0 
             })
           end
-          @cards = current_user.cards
+          @cards = current_user.cards.order("created_at DESC")
         end
 
         namespace ":id" do 

@@ -65,26 +65,26 @@ class User < ActiveRecord::Base
   end
 
   def generate_initial_cards  
-    current_week = ((self.baby_due - Time.now) / 1.week).to_i
+    current_week = ((Time.zone.now - (self.baby_due - 10.months)) / 1.week).to_i
 
-    card_week = current_week
+    card_week   = current_week
     cards_count = 0
+    datas       = []
     i = 5
 
+    while card_week >= 5 && card_week <= 40 && cards_count <= 15 do
+      card_week -= 1
+      3.times do |count|
+        cards_count += 1
+        puts "#{card_week} #{count}"
+        data = QuestionSheet.normal_data(self.gender, card_week, count)
+        datas.push(data)
+      end
+    end
+
     ActiveRecord::Base.transaction do
-      while card_week >= 5 && card_week <= 40 && cards_count <= 15 do
-        card_week -= 1
-        3.times do |count|
-          cards_count += 1
-          puts "#{card_week} #{count}"
-          data = QuestionSheet.normal_data(self.gender, card_week, count)
-          self.cards.create({ 
-            title: data[:title], 
-            content: data[:content], 
-            week: card_week, 
-            resources_count: 0 
-          })
-        end
+      datas.reverse_each do |data|
+        self.cards.create(data)
       end
     end
   end
