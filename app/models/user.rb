@@ -78,7 +78,12 @@ class User < ActiveRecord::Base
         cards_count += 1
         puts "#{card_week} #{count}"
         data = QuestionSheet.normal_data(self.gender, card_week, count)
-        datas.push(data)
+        datas.push({ 
+          title: data[:title], 
+          content: data[:content], 
+          week: card_week, 
+          resources_count: 0 
+        })
       end
     end
 
