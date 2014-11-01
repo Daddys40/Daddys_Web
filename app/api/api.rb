@@ -6,11 +6,6 @@ class API < Grape::API
 
   HTTP_ERROR_CODE = 422
 
-  get 'hello' do
-    return { hello: "world" }
-  end
-
-
   helpers do
     def declared_params
       declared(params, include_missing: false)
@@ -140,7 +135,7 @@ class API < Grape::API
           if params[:week] && params[:count]
             week  = params[:week].to_i
             count = params[:count].to_i
-            data = QuestionsController::QuestionSheet.normal_data(current_user.gender, week, count)
+            data = QuestionSheet.normal_data(current_user.gender, week, count)
             current_user.cards.create({ 
               title: data[:title], 
               content: data[:content], 

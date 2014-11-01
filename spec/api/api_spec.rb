@@ -112,7 +112,7 @@ describe API, type: :request do
             weight: 52,
             notifications_days: "135",
             notificate_at: "16:40",
-            baby_due: "2014-09-09 18:39:42 +0900",
+            baby_due: (Time.now + 6.months).to_s,
           } 
           response.should be_success
           json["current_user"]["email"].should == "breath103@gmail.com"

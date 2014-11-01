@@ -22,6 +22,7 @@ module Daddys40
 
     # for Grape 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
 
     config.middleware.use(Rack::Config) do |env|

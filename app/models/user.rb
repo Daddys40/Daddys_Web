@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   before_validation :ensure_authentication_token, on: :create
   before_validation :check_invitation_code, on: :create, if: lambda { |user| user.partner_invitation_code }
 
-  after_create :set_opponent_partner, #, if: "partner_id_changed?"
+  after_create :set_opponent_partner #, if: "partner_id_changed?"
+  after_create :generate_initial_cards
 
   def generate_invitation_code
     begin
@@ -60,6 +61,31 @@ class User < ActiveRecord::Base
   def set_opponent_partner
     if partner_id 
       User.find_by_id(partner_id).update_attribute(:partner_id, self.id)
+    end
+  end
+
+  def generate_initial_cards  
+    current_week = ((self.baby_due - Time.now) / 1.week).to_i
+
+    card_week = current_week
+    cards_count = 0
+    i = 5
+
+    ActiveRecord::Base.transaction do
+      while card_week >= 5 && card_week <= 40 && cards_count <= 15 do
+        card_week -= 1
+        3.times do |count|
+          cards_count += 1
+          puts "#{card_week} #{count}"
+          data = QuestionSheet.normal_data(self.gender, card_week, count)
+          self.cards.create({ 
+            title: data[:title], 
+            content: data[:content], 
+            week: card_week, 
+            resources_count: 0 
+          })
+        end
+      end
     end
   end
 
