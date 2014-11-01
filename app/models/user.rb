@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_initial_cards  
-    current_week = ((Time.zone.now - (self.baby_due - 10.months)) / 1.week).to_i
+    current_week = (((Time.zone.now - (self.baby_due - 10.months)) / 1.week).to_i) - 2
 
     card_week   = current_week
     cards_count = 0
