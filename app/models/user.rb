@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
     self.role ||= :user
   end
 
-  has_many :cards
+  has_many :cards, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

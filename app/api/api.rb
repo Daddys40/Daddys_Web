@@ -126,6 +126,15 @@ class API < Grape::API
         @user = current_user
       end
 
+      delete do 
+        authenticate!
+        if current_user.destroy
+          { success: true }
+        else 
+          error!( { error: current_user.errors.full_messages}, 422)
+        end
+      end
+
       namespace "cards" do 
         get "", rabl: "cards/cards" do
           if params[:week] && params[:count]

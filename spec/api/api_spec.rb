@@ -88,6 +88,14 @@ describe API, type: :request do
             json["current_user"]["notifications_days"].should == "012"
           end
         end
+
+        describe "DELETE me" do 
+          let!(:user) { FactoryGirl.create(:user, email: "breath103@gmail.com") }
+          it "should destroy user model" do
+            delete "/users/me", authentication_token: user.authentication_token
+            User.find_by_id(user.id).should == nil
+          end
+        end
       end
 
       describe "POST api/users" do 
