@@ -76,7 +76,6 @@ class User < ActiveRecord::Base
       card_week -= 1
       3.times do |count|
         cards_count += 1
-        puts "#{card_week} #{count}"
         data = QuestionSheet.normal_data(self.gender, card_week, count)
         datas.push({ 
           title: data[:title], 

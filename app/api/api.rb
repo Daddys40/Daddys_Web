@@ -20,7 +20,7 @@ class API < Grape::API
     end
 
     def authenticate!
-      return true if warden.authenticated? || current_user
+      return true if @current_user
       @current_user ||= User.find_by_authentication_token(params[:authentication_token]) if params[:authentication_token]
       @current_user ||= warden.user 
       error!({error: "Unauthorized"}, 401) unless @current_user
