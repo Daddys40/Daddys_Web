@@ -59,8 +59,14 @@ class User < ActiveRecord::Base
   end
 
   def set_opponent_partner
-    if partner_id 
-      User.find_by_id(partner_id).update_attribute(:partner_id, self.id)
+    if partner_id
+      partner = self.partner
+      partner.update_attribute(:partner_id, self.id)
+
+      self.update_attributes({
+        baby_due: partner.baby_due,
+        baby_name: partner.baby_name
+      })
     end
   end
 
