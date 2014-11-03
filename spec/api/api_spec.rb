@@ -3,16 +3,6 @@ require 'spec_helper'
 describe API, type: :request do
   let(:json) { JSON.parse(response.body) }
   describe API do
-    describe "GET /api/hello" do
-      it "returns an empty array of statuses" do
-        get "/hello.json"
-        response.status.should == 200
-        json.should == {
-          "hello" => "world"
-        }
-      end
-    end
-
     describe "GET /app/version" do 
       context "with higher version" do
         before {
@@ -202,7 +192,7 @@ describe API, type: :request do
         it "should return cards" do 
           get "/users/me/cards.json", authentication_token: user.authentication_token
           json.length.should == 2
-          (json.collect { |card| card["id"] }).should == cards.map(&:id)
+          (json.collect { |card| card["id"] }).should == [cards[1].id, cards[0].id]
         end
       end
       describe "GET me/cards/:id" do 
