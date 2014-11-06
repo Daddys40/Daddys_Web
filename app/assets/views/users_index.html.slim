@@ -7,6 +7,19 @@ div class="container"
   div 
     | Last 24 hours
     | {{ countChart | json }}
+
+  div 
+    h4 
+      | Notifications Days
+    div
+      | {{ totalMetric.notifications_days | json }}
+
+  div 
+    h4 
+      | Notificate At
+    div
+      | {{ totalMetric.notificate_at | json }}
+
   / ul class="users-list" 
   /   table class="table table-striped"
   /     thead

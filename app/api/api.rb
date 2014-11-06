@@ -106,8 +106,26 @@ class API < Grape::API
     end
 
     get "total_metric" do 
+      combination_count = User.group(:notifications_days).count
+      days = {
+        0 => 0,
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0
+      }
+      combination_count.each do |combination, count| 
+        combination.each_char do |day_s| 
+          days[day_s.to_i] += count
+        end
+      end
+
       {
-        count: User.count
+        count: User.count,
+        notifications_days: days,
+        notificate_at: User.group("DATE_PART('hour', notificate_at)").count
       }
     end
 
