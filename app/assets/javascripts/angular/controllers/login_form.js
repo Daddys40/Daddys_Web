@@ -19,12 +19,16 @@ angular.module('daddysControllers', ['daddysAuth'])
   }])
   .controller('MainCtrl', ["$scope", function ($scope) {
   }])
-  .controller('UsersCtrl', ["$scope", "User", function ($scope, User) {
-    $scope.users = [];
+  .controller('UsersIndexCtrl', ["$scope", "User", function ($scope, User) {
+    $scope.totalMetric = {}
 
-    User.query(function (users){
-      $scope.users = users;
-    });
+    User.totalMetric(function(totalMetric){
+      $scope.totalMetric = totalMetric
+    })
+
+    User.countChart(function(countChart){
+      $scope.countChart = countChart
+    })
   }])
   .controller('ApplicationCtrl', ["$scope", "Session", function ($scope, Session) {
     $scope.session = Session;

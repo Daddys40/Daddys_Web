@@ -24,6 +24,7 @@ gem 'grape-rabl'
 gem 'roo'
 gem 'browserlog', '~> 0.0.2'
 gem 'hashie_rails'
+gem 'kaminari'
 
 group :doc do 
   gem 'sdoc', '~> 0.4.0'

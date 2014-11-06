@@ -97,8 +97,27 @@ class API < Grape::API
 	namespace "users" do 
     desc "Query users"
 
+    params do 
+      requires :page, type: Integer, default: 1
+      requires :count, type: Integer, default: 30
+    end
     get "", rabl: "users/users" do 
-      @users = User.all.to_a
+      @users = User.page(params[:page]).per(params[:count])
+    end
+
+    get "total_metric" do 
+      {
+        count: User.count
+      }
+    end
+
+    params do 
+      optional :range, type: Integer, default: 1
+    end 
+    get "count_chart" do 
+      User.group("DATE_PART('hour',created_at)")
+          .where("created_at > ?", Time.now - params[:range].day)
+          .count
     end
 
     params do 

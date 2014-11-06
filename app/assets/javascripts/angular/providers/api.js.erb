@@ -27,6 +27,23 @@ angular.module('daddysAPI', ['ngResource'])
 	}])
   .factory("User", ['$resource', function($resource){
     return $resource(
-      "/users/:id", {}, {}
+      "/users/:id", 
+      {
+        id: "@id"
+      }, 
+      {
+        totalMetric: {
+          method: "GET",
+          params: {
+            id: "total_metric"
+          }
+        },
+        countChart: {
+          method: "GET",
+          params: {
+            id: "count_chart"
+          }
+        }
+      }
     );
   }]);

@@ -16,7 +16,7 @@ angular.module('frenddy', ['ngRoute', 'ngAnimate', 'daddysControllers', 'daddysF
       })
       .when('/users', {
         templateUrl: '<%= asset_path("users_index.html") %>',
-        controller: 'UsersCtrl'
+        controller: 'UsersIndexCtrl'
       })
       .otherwise({
         redirectTo: '/'

@@ -1,34 +1,40 @@
 div class="container"
   h3 
-    | Users
-  ul class="users-list" 
-    table class="table table-striped"
-      thead
-        tr
-          td ID 
-          td Name
-          td email
-          td gender
-          td baby due
-          td baby name
-          td week days
-          td notification time
-      tbody
-        tr ng-repeat="user in users" class="user"
-          td 
-            a href="#/users/{{user.id}}" 
-              | {{ user.id }}
-          td
-            | {{ user.name }}
-          td
-            | {{ user.email }}
-          td 
-            | {{ user.gender }}
-          td
-            | {{ user.baby_due }}
-          td 
-            | {{ user.baby_name }}
-          td 
-            | {{ user.notifications_days | notificationsDays }}
-          td 
-            | {{ user.notificate_at }}
+    | User Metric
+  div ng-if="totalMetric"
+    h4
+      | Total Count : {{ totalMetric.count | number }}
+  div 
+    | Last 24 hours
+    | {{ countChart | json }}
+  / ul class="users-list" 
+  /   table class="table table-striped"
+  /     thead
+  /       tr
+  /         td ID 
+  /         td Name
+  /         td email
+  /         td gender
+  /         td baby due
+  /         td baby name
+  /         td week days
+  /         td notification time
+  /     tbody
+  /       tr ng-repeat="user in users" class="user"
+  /         td 
+  /           a href="#/users/{{user.id}}" 
+  /             | {{ user.id }}
+  /         td
+  /           | {{ user.name }}
+  /         td
+  /           | {{ user.email }}
+  /         td 
+  /           | {{ user.gender }}
+  /         td
+  /           | {{ user.baby_due }}
+  /         td 
+  /           | {{ user.baby_name }}
+  /         td 
+  /           | {{ user.notifications_days | notificationsDays }}
+  /         td 
+  /           | {{ user.notificate_at }}
