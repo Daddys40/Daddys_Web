@@ -6,8 +6,8 @@ html ng-app="frenddy" ng-controller="ApplicationCtrl"
     title
       = content_for?(:title) ? yield(:title) : "Frenddy"
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Frenddy'}"
-    == stylesheet_link_tag "application", :media => 'all'
-    == javascript_include_tag 'application'
+    == stylesheet_link_tag "application", media: "all"
+    == javascript_include_tag "application"
     == csrf_meta_tags
   body
 		div login-dialog=""

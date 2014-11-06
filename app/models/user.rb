@@ -76,7 +76,6 @@ class User < ActiveRecord::Base
     card_week   = current_week
     cards_count = 0
     datas       = []
-    i = 5
 
     while card_week >= 5 && card_week <= 40 && cards_count <= 15 do
       card_week -= 1
