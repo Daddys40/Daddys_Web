@@ -1,0 +1,1 @@
+angular.module('frenddy.controller', ['frenddy.provider']);

@@ -1,4 +1,4 @@
-angular.module('daddysFilters', [])
+angular.module('frenddy.filter', [])
   .filter('notificationsDays', function () {
  		return function (input) {
  			if (input) {

@@ -1,4 +1,6 @@
-angular.module('daddysControllers', ['daddysAuth'])
+#= require "./index.js"
+
+angular.module('frenddy.controller')
   .controller('LoginFormCtrl', ["$scope", "AuthService", "AUTH_EVENTS", function ($scope, AuthService, AUTH_EVENTS) {
     $scope.credentials = {
       email: '',
@@ -17,22 +19,3 @@ angular.module('daddysControllers', ['daddysAuth'])
       );
     };
   }])
-  .controller('MainCtrl', ["$scope", function ($scope) {
-  }])
-  .controller('UsersIndexCtrl', ["$scope", "User", function ($scope, User) {
-    $scope.totalMetric = {}
-
-    User.totalMetric(function(totalMetric){
-      $scope.totalMetric = totalMetric
-    })
-
-    User.countChart(function(countChart){
-      $scope.countChart = countChart
-    })
-  }])
-  .controller('ApplicationCtrl', ["$scope", "Session", function ($scope, Session) {
-    $scope.session = Session;
-  }]);
-  
-
-  

@@ -20,6 +20,8 @@
 //= require angular-1.3.0-rc.1/angular-route.js
 //= require angular-1.3.0-rc.1/angular-animate.js
 
+//= require highcharts-ng/highcharts-ng.js
+
 //= require angular/app.js
 //= require_tree ./angular/providers
 //= require_tree ./angular/directives

@@ -1,4 +1,6 @@
-angular.module('daddysAPI', ['ngResource'])
+#= require "./index.js"
+
+angular.module('frenddy.provider.api', ['ngResource'])
 	.factory("Auth", ['$resource', function($resource){
   	return $resource(
   		"/users/:action",

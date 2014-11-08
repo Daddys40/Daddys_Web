@@ -1,6 +1,6 @@
-'use strict';
+#= require "./index.js"
 
-angular.module('daddysAuth', ['daddysAPI'])
+angular.module('frenddy.provider.authentication', ['frenddy.provider.api'])
   .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',
