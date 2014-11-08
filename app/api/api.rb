@@ -125,7 +125,7 @@ class API < Grape::API
       {
         count: User.count,
         notifications_days: days,
-        notificate_at: User.group("DATE_PART('hour', notificate_at)").count
+        notificate_at: User.group("DATE_PART('hour', notificate_at)").order("DATE_PART('hour', notificate_at) ASC").count
       }
     end
 
