@@ -1,84 +1,63 @@
-#= require "./index.js"
+# = require "./index.js"
 
 angular.module('frenddy.controller')
-  .controller('UsersIndexCtrl', ["$scope", "User", function ($scope, User) {
-    $scope.totalMetric = {}
-    $scope.notificationsDaysChartConfig = {
-		  "options": {
-		    "chart": {
-		      "type": "areaspline"
-		    },
-		    "plotOptions": {
-		      "series": {
-		        "stacking": ""
-		      }
-		    }
-		  },
-		  "series": [
-		    {
-		      "name": "Some data",
-		      "data": [
-		        1,
-		        2,
-		        4,
-		        7,
-		        3
-		      ],
-		      "id": "series-0"
-		    },
-		    {
-		      "name": "Some data 3",
-		      "data": [
-		        3,
-		        1,
-		        null,
-		        5,
-		        2
-		      ],
-		      "connectNulls": true,
-		      "id": "series-1"
-		    },
-		    {
-		      "name": "Some data 2",
-		      "data": [
-		        5,
-		        2,
-		        2,
-		        3,
-		        5
-		      ],
-		      "type": "column",
-		      "id": "series-2"
-		    },
-		    {
-		      "name": "My Super Column",
-		      "data": [
-		        1,
-		        1,
-		        2,
-		        3,
-		        2
-		      ],
-		      "type": "column",
-		      "id": "series-3"
-		    }
-		  ],
-		  "title": {
-		    "text": "Hello"
-		  },
-		  "credits": {
-		    "enabled": true
-		  },
-		  "loading": false,
-		  "size": {}
-		}
+  .controller('UsersIndexCtrl', ["$scope", "User", "$filter",
+    function($scope, User, $filter) {
+      $scope.totalMetric = {}
 
-    User.totalMetric(function(totalMetric){
-      $scope.totalMetric = totalMetric
+      User.totalMetric(function(totalMetric) {
+        $scope.totalMetric = totalMetric
 
-    })
+        $scope.notificationsDaysChartConfig = {
+          options: {
+            chart: {
+              type: 'column'
+            },
+          },
+          series: [{
+            name: "Notificaion Days",
+            data: _.map(totalMetric.notifications_days, function(count, day) {
+              return count;
+            })
+          }],
+          title: {
+            text: 'Notificaion Days'
+          },
+          xAxis: {
+            categories: (function() {
+              daysFilter = $filter("notificationsDays")
+              return _.map(totalMetric.notifications_days, function(count, day) {
+                return daysFilter(day);
+              })
+            })()
+          }
+        };
 
-    User.countChart(function(countChart){
-      $scope.countChart = countChart
-    })
-  }]);
+        $scope.notificateAtChartConfig = {
+          options: {
+            chart: {
+              type: 'column'
+            },
+          },
+          series: [{
+            name: "Notificate At",
+            data: _.map(totalMetric.notificate_at, function(count, day) {
+              return count;
+            })
+          }],
+          title: {
+            text: 'Notificate At'
+          },
+          xAxis: {
+            categories: _.map(totalMetric.notificate_at, function(count, hour) {
+            	return hour;
+            })
+          }
+        };
+      })
+
+      User.countChart(function(countChart) {
+        $scope.countChart = countChart
+      })
+    }
+  ]);

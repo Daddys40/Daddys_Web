@@ -1,7 +1,6 @@
 div class="container"
-  h3 
+  h2
     | User Metric
-  highchart id="chart1" config="notificationsDaysChartConfig"
   div ng-if="totalMetric"
     h4
       | Total Count : {{ totalMetric.count | number }}
@@ -9,18 +8,14 @@ div class="container"
       | Last 24 hours
       | {{ countChart | json }}
 
-    div
-      h4 
-        | Notifications Days
+    div class="well"
+      h3 Notification
+      h4 Days
       div
-        | {{ totalMetric.notifications_days | json }}
-
-    div 
-      h4 
-        | Notificate At
-      div
-        | {{ totalMetric.notificate_at | json }}
-
+        highchart config="notificationsDaysChartConfig"
+      h4 Time
+      div 
+        highchart config="notificateAtChartConfig"
   / ul class="users-list" 
   /   table class="table table-striped"
   /     thead

@@ -7,9 +7,8 @@ html ng-app="frenddy" ng-controller="ApplicationCtrl"
       = content_for?(:title) ? yield(:title) : "Frenddy"
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Frenddy'}"
     == stylesheet_link_tag "application", media: "all"
-    == javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js'
-    == javascript_include_tag '//code.highcharts.com/highcharts.src.js'
     == javascript_include_tag "application"
+    == javascript_include_tag "//code.highcharts.com/highcharts.src.js"
     == csrf_meta_tags
   body
 		div login-dialog=""

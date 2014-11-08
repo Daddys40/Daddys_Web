@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require underscore/underscore
 //= require bootstrap-sprockets
 
 //= require angular-1.3.0-rc.1/angular.js
