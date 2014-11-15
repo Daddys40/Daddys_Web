@@ -53,6 +53,9 @@ class User < ActiveRecord::Base
     partner = User.find_by_invitation_code(self.partner_invitation_code)
     if partner
       self.partner_id = partner.id
+      genders = GENDER.values
+      genders.delete(partner.gender)
+      self.gender = genders.first
     else
       self.errors.add(:partner_invitation_code, "It's invalid invitation code")
     end

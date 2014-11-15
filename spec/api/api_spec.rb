@@ -128,7 +128,7 @@ describe API, type: :request do
         end
 
         context "with invitation_code" do 
-          let(:user2) { FactoryGirl.create(:user) }
+          let(:user2) { FactoryGirl.create(:user, gender: "female") }
           before do 
             user2.generate_invitation_code
             user2.save
@@ -138,7 +138,6 @@ describe API, type: :request do
               email: "breath103@gmail.com",
               password: "123123123",
               name: "Kurt Sang Hyun Lee",
-              gender: "male",
               baby_name: "Mong Mong", 
               age: 123,
               height: 171,
@@ -154,6 +153,7 @@ describe API, type: :request do
             user = User.find_by_email("breath103@gmail.com")
 
             json["current_user"]["id"].should == user.id
+            json["current_user"]["gender"].should == "male"
             json["current_user"]["partner"]["id"].should == user2.id
             user.partner_id.should == user2.id
 
