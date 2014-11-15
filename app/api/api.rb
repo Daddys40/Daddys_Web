@@ -19,6 +19,13 @@ class API < Grape::API
       error!({error: "Not Found "}, 404) unless model
     end
 
+    def save!(model)
+      if model.save
+      else 
+        error!({ errors: model.errors.full_messages }, 422)
+      end
+    end
+
     def authenticate!
       return true if @current_user
       @current_user ||= User.find_by_authentication_token(params[:authentication_token]) if params[:authentication_token]
@@ -39,7 +46,7 @@ class API < Grape::API
       return nil;
     end
 
-     def is_request_from_ios?
+    def is_request_from_ios?
       user_agent = request.env["HTTP_USER_AGENT"]
       user_agent and (user_agent.include?("iPhone") or user_agent.include?("iPod") or user_agent.include?("iPad"))
     end
@@ -93,6 +100,22 @@ class API < Grape::API
       @user = current_user
     end
   end
+
+  namespace "feedbacks" do 
+    before do 
+      authenticate!
+    end
+
+    get "", rabl: "feedbacks/feedbacks" do 
+      @feedbacks = Feedback.includes(:user).all
+    end
+
+    post "", rabl: "feedbacks/feedback" do
+      @feedback = current_user.feedbacks.new(params[:feedback])
+      save!(@feedback)
+      { success: true }
+    end
+  end 
 
 	namespace "users" do 
     desc "Query users"

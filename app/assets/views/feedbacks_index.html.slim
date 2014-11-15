@@ -1,0 +1,21 @@
+div class="container"
+  h2 
+    | Feedbacks
+  table class="table table-striped"
+    thead
+      tr
+        td ID 
+        td text
+        td created at
+        td email
+    tbody
+      tr ng-repeat="feedback in feedbacks"
+        td 
+          | {{ feedback.id }}
+        td
+          | {{ feedback.text }}
+        td
+          | {{ feedback.created_at }}
+        td
+          | {{ feedback.user.email }}
+    

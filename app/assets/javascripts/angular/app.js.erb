@@ -18,6 +18,10 @@ angular.module('frenddy', ['ngRoute', 'ngAnimate', 'highcharts-ng', 'frenddy.con
         templateUrl: '<%= asset_path("users_index.html") %>',
         controller: 'UsersIndexCtrl'
       })
+      .when('/feedbacks', {
+        templateUrl: '<%= asset_path("feedbacks_index.html") %>',
+        controller: 'FeedbacksIndexCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

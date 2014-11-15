@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   end
 
   has_many :cards, dependent: :destroy
+  has_many :feedbacks
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

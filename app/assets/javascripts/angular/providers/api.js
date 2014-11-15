@@ -48,4 +48,12 @@ angular.module('frenddy.provider.api', ['ngResource'])
         }
       }
     );
+  }])
+  .factory("Feedback", ['$resource', function($resource){
+    return $resource(
+      "/feedbacks/:id", 
+      {
+        id: "@id"
+      } 
+    );
   }]);

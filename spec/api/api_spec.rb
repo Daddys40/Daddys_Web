@@ -56,6 +56,26 @@ describe API, type: :request do
       end      
     end
 
+    describe "Feedback API" do 
+      describe "POST /feedbacks" do 
+        let(:user) { FactoryGirl.create(:user) }
+        before do 
+          post "/feedbacks", authentication_token: user.authentication_token, feedback: {
+            text: "123123123"
+          }
+        end
+        it "should create new feedback" do 
+          # ap response.status
+          # ap json
+          response.should be_success
+          feedback = user.feedbacks.first
+          feedback.text.should == "123123123"
+
+          json["id"].should == feedback.id
+        end
+      end
+    end
+
     describe "User API" do 
       describe "me APIs" do 
         describe "POST api/users/me/invitation" do 
