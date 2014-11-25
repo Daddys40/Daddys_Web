@@ -79,13 +79,13 @@ class API < Grape::API
         update_message: "Update Message",
         needs_update: needs_update,
         needs_force_update: false,
-        url: "https://play.google.com/store/apps/details?id=com.daddys40"
+        url: "https://play.google.com/store/apps/details?id=com.daddys40.re"
       } 
     end
 
     get :install do 
       if is_request_from_android? 
-        redirect("https://play.google.com/store/apps/details?id=com.daddys40")
+        redirect("https://play.google.com/store/apps/details?id=com.daddys40.re")
       elsif is_request_from_ios?
         "Sorry. iOS app is comming soon"
       else

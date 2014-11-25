@@ -15,7 +15,7 @@ describe API, type: :request do
               "needs_update" => false,
               "needs_force_update" => false,
               "update_message" => "Update Message",
-              "url" => "https://play.google.com/store/apps/details?id=com.daddys40"
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40.re"
             }
           end
         end
@@ -32,7 +32,7 @@ describe API, type: :request do
               "needs_update" => false,
               "needs_force_update" => false,
               "update_message" => "Update Message",
-              "url" => "https://play.google.com/store/apps/details?id=com.daddys40"
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40.re"
             }
           end
         end
@@ -49,7 +49,7 @@ describe API, type: :request do
               "needs_update" => true,
               "needs_force_update" => false,
               "update_message" => "Update Message",
-              "url" => "https://play.google.com/store/apps/details?id=com.daddys40"
+              "url" => "https://play.google.com/store/apps/details?id=com.daddys40.re"
             }
           end
         end
